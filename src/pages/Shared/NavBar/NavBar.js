@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 const NavBar = () => {
     return (
         <div>
-            <div className="navbar bg-base-100">
+            <div className="navbar lg:px-12">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -24,29 +25,15 @@ const NavBar = () => {
                             <li><a>Item 3</a></li>
                         </ul>
                     </div>
-                    <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+                    <Link to='/' style={{ fontFamily: ['Lobster', 'cursive'] }} className="text-[#004aad] hover:underline text-xl lg:text-5xl font-bold">MobiHub</Link>
                 </div>
-                <div className="navbar-center hidden lg:flex">
+                <div className="navbar-end hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">
-                        <li><a>Item 1</a></li>
-                        <li tabIndex={0}>
-                            <a>
-                                Parent
-                                <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
-                            </a>
-                            <ul className="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
-                            </ul>
-                        </li>
-                        <li><a>Item 3</a></li>
+                        <li><NavLink to='/login' className={({ isActive }) => isActive ? 'btn rounded-lg btn-ghost bg-blue-700 text-white hover:text-black' : 'btn rounded-lg btn-ghost bg-[#004aad] text-white hover:text-black'} > Login</NavLink></li>
                     </ul>
                 </div>
-                <div className="navbar-end">
-                    <a className="btn">Get started</a>
-                </div>
             </div>
-        </div>
+        </div >
     );
 };
 

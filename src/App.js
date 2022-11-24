@@ -1,5 +1,6 @@
 import { RouterProvider } from 'react-router-dom';
 import './App.css';
+import TopBanner from './pages/Home/TopBanner/TopBanner';
 import { router } from './Routes/Routes/Routes';
 
 function App() {
