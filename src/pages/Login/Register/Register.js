@@ -4,6 +4,7 @@ import { authContext } from '../../../context/AuthProvider/AuthProvider';
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 const Register = () => {
     const { createUser, GoogleSignIn } = useContext(authContext)
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -31,7 +32,7 @@ const Register = () => {
             .then(result => {
                 console.log(result.user)
                 handelSetUserToDatabase(user)
-
+                e.target.reset()
             })
             .catch(err => console.log(err))
 
@@ -78,6 +79,9 @@ const Register = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data)
+                if (data.acknowledged) {
+                    toast.success('User created successfully')
+                }
             })
     }
 
@@ -99,8 +103,13 @@ const Register = () => {
                             {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
                         </div>
                         <div className="form-control w-full  my-3">
-                            <input {...register("password", { required: "Password is required" })} type="password" placeholder='Password' className="input input-bordered w-full " />
-                            {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
+                            <input {...register("password",
+                                {
+                                    required: "Password is required",
+                                    minLength: { value: 8, message: "Password must be at least 8 characters" },
+                                    pattern: { value: /(?=.*[A-Z])(?=.*[!@#$&%*])(?=.*[0-9])/, message: "password must have uppercase,special character and number" }
+                                })} type="password" placeholder='Password' className="input input-bordered w-full " />
+                            {errors.password && <p className='text-red-600'><small> {errors.password?.message}</small></p>}
                         </div>
                         <div className="form-control w-full my-3">
                             <input {...register("phone", { required: "Phone is required" })} type="text" placeholder='Phone' className="input input-bordered w-full " />

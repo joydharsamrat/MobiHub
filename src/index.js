@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider, } from '@tanstack/react-query'
 import AuthProvider from './context/AuthProvider/AuthProvider';
+import { Toaster } from 'react-hot-toast';
 
 const queryClient = new QueryClient()
 
@@ -16,6 +17,7 @@ root.render(
       <HelmetProvider>
         <AuthProvider>
           <App />
+          <Toaster />
         </AuthProvider>
       </HelmetProvider>
     </QueryClientProvider>
