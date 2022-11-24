@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { authContext } from '../../../context/AuthProvider/AuthProvider';
 
 const NavBar = () => {
+    const { user, logOut } = useContext(authContext)
+    const handelLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(err => console.log(err))
+    }
     return (
         <div>
             <div className="navbar lg:px-12">
@@ -29,7 +36,12 @@ const NavBar = () => {
                 </div>
                 <div className="navbar-end hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">
-                        <li><NavLink to='/login' className={({ isActive }) => isActive ? 'btn rounded-lg btn-ghost bg-blue-700 text-white hover:text-black' : 'btn rounded-lg btn-ghost bg-[#004aad] text-white hover:text-black'} > Login</NavLink></li>
+                        {
+                            user?.uid ?
+                                <li><button onClick={handelLogOut} className='btn rounded-lg btn-ghost bg-[#004aad] text-white hover:text-black'>SignOut</button></li>
+                                :
+                                <li><NavLink to='/login' className={({ isActive }) => isActive ? 'btn rounded-lg btn-ghost bg-blue-700 text-white hover:text-black' : 'btn rounded-lg btn-ghost bg-[#004aad] text-white hover:text-black'} > Login</NavLink></li>
+                        }
                     </ul>
                 </div>
             </div>

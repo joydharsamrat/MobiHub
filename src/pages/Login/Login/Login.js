@@ -3,9 +3,10 @@ import { Helmet } from 'react-helmet-async';
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
 import { authContext } from '../../../context/AuthProvider/AuthProvider';
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
-    const { logIn } = useContext(authContext)
+    const { logIn, GoogleSignIn } = useContext(authContext)
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const handelLogin = (data, e) => {
@@ -17,6 +18,36 @@ const Login = () => {
             })
             .catch(err => console.log(err))
     }
+
+    const handelGoogleSignIn = () => {
+        GoogleSignIn()
+            .then(result => {
+                console.log(result.user)
+                const user = {
+                    name: result.user.displayName,
+                    email: result.user.email,
+                    img: result.user.photoURL,
+                    role: "buyer"
+                }
+                handelSetUserToDatabase(user)
+            })
+            .catch(err => console.log(err))
+    }
+
+    const handelSetUserToDatabase = (user) => {
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
+    }
+
     return (
         <div className='my-12'>
             <Helmet>
@@ -36,6 +67,7 @@ const Login = () => {
                         </div>
                         <input className='btn bg-[#004aad] w-full my-3 text-xl font-bold' type="submit" />
                     </form>
+                    <button onClick={handelGoogleSignIn} className='btn bg-[#004aad] w-full my-3 text-xl font-bold'><FcGoogle></FcGoogle>oo<FcGoogle></FcGoogle>le</button>
                 </div>
             </div>
             <div className='text-center my-3'>

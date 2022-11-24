@@ -2,9 +2,10 @@ import React, { useContext, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { authContext } from '../../../context/AuthProvider/AuthProvider';
 import { useForm } from "react-hook-form";
-
+import { FcGoogle } from "react-icons/fc";
+import { Link } from 'react-router-dom';
 const Register = () => {
-    const { createUser } = useContext(authContext)
+    const { createUser, GoogleSignIn } = useContext(authContext)
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [img, setImg] = useState('')
     const imgHostKey = process.env.REACT_APP_ImgBB_Key;
@@ -15,6 +16,13 @@ const Register = () => {
         const password = data.password;
         const phone = data.phone;
         const role = data.role;
+        const user = {
+            name,
+            email,
+            phone,
+            role,
+            img
+        }
         const photo = data.photo[0];
         const formData = new FormData()
         formData.append('image', photo)
@@ -22,6 +30,8 @@ const Register = () => {
         createUser(email, password)
             .then(result => {
                 console.log(result.user)
+                handelSetUserToDatabase(user)
+
             })
             .catch(err => console.log(err))
 
@@ -42,13 +52,42 @@ const Register = () => {
             })
     }
 
+    const handelGoogleSignIn = () => {
+        GoogleSignIn()
+            .then(result => {
+                console.log(result.user)
+                const user = {
+                    name: result.user.displayName,
+                    email: result.user.email,
+                    img: result.user.photoURL,
+                    role: "buyer"
+                }
+                handelSetUserToDatabase(user)
+            })
+            .catch(err => console.log(err))
+    }
+
+    const handelSetUserToDatabase = (user) => {
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
+    }
+
     return (
         <div className='my-12'>
             <Helmet>
                 <title>MobiHub-Register</title>
             </Helmet>
             <div className='flex justify-center'>
-                <div className='bg-[#8ecae6] w-full lg:w-[30vw] border shadow-lg rounded-xl h-fit my-12 p-5'>
+                <div className='bg-[#8ecae6] w-full lg:w-[30vw] border shadow-lg rounded-xl h-fit p-5'>
                     <h2 className='text-center text-3xl font-bold text-white'>Register</h2>
                     <form onSubmit={handleSubmit(handelCreateUser)} >
                         <div className="form-control w-full  my-3">
@@ -75,8 +114,11 @@ const Register = () => {
                         </select>
                         <input className='btn bg-[#004aad] w-full my-3 text-xl font-bold' type="submit" />
                     </form>
-                    <button className='btn bg-[#004aad] w-full my-3 text-xl font-bold' >Google</button>
+                    <button onClick={handelGoogleSignIn} className='btn bg-[#004aad] w-full my-3 text-xl font-bold'><FcGoogle></FcGoogle>oo<FcGoogle></FcGoogle>le</button>
                 </div>
+            </div>
+            <div className='text-center my-3'>
+                <p>Already have an account ? <Link className='text-blue-600 font-bold' to='/login'>Sign in</Link></p>
             </div>
         </div>
     );
