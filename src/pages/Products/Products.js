@@ -1,9 +1,14 @@
 import React from 'react';
+import { useLoaderData } from 'react-router-dom';
 
 const Products = () => {
+    const products = useLoaderData();
+
     return (
         <div>
-            products
+            {
+                products?.map(product => <p>{product.name}</p>)
+            }
         </div>
     );
 };

@@ -31,7 +31,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/products/:id',
-                element: <Products></Products>
+                element: <Products></Products>,
+                loader: ({ params }) => fetch(`http://localhost:5000/products/${params.id}`, { headers: { authorization: `bearer ${localStorage.getItem('accessToken')}` } })
             }
         ]
     },
@@ -42,7 +43,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard/addProducts',
-                element: <AddProducts></AddProducts>
+                element: <SellerRoute><AddProducts></AddProducts></SellerRoute>
             }
         ]
     },
