@@ -36,6 +36,7 @@ const NavBar = () => {
                 </div>
                 <div className="navbar-end hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">
+                        <li><NavLink to='dashboard'>Dashboard</NavLink></li>
                         {
                             user?.uid ?
                                 <li><button onClick={handelLogOut} className='btn rounded-lg btn-ghost bg-[#004aad] text-white hover:text-black'>SignOut</button></li>

@@ -8,6 +8,8 @@ import Register from "../../pages/Login/Register/Register";
 import Products from "../../pages/Products/Products";
 import DisplayError from "../../pages/Shared/DisplayError/DisplayError";
 import ErrorPage from "../../pages/Shared/ErrorPage/ErrorPage";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import SellerRoute from "../SellerRoute/SellerRoute";
 
 export const router = createBrowserRouter([
     {
@@ -35,11 +37,12 @@ export const router = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        element: <DashboardLayout></DashboardLayout>,
+        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+        errorElement: <DisplayError></DisplayError>,
         children: [
             {
                 path: '/dashboard/addProducts',
-                element: <AddProducts></AddProducts>
+                element: <SellerRoute> <AddProducts></AddProducts></SellerRoute>
             }
         ]
     },

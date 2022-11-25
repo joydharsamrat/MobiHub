@@ -21,7 +21,9 @@ const AuthProvider = ({ children }) => {
     const logIn = (email, password) => {
         return signInWithEmailAndPassword(auth, email, password)
     }
-
+    const updateUser = profile => {
+        return updateProfile(auth.currentUser, profile)
+    }
     const logOut = () => {
         return signOut(auth)
     }
@@ -41,6 +43,7 @@ const AuthProvider = ({ children }) => {
         createUser,
         logIn,
         GoogleSignIn,
+        updateUser,
         logOut
 
     }

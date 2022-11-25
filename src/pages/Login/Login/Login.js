@@ -1,13 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { authContext } from '../../../context/AuthProvider/AuthProvider';
 import { FcGoogle } from "react-icons/fc";
+import useToken from '../../../hooks/useToken';
 
 const Login = () => {
     const { logIn, GoogleSignIn } = useContext(authContext)
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [createdUserEmail, setCreatedUserEmail] = useState('')
+    const [token] = useToken(createdUserEmail);
+    const location = useLocation();
+    const navigate = useNavigate()
+    const from = location.state?.from?.pathname || "/";
+
+    if (token) {
+        navigate(from, { replace: true })
+    }
+
 
     const handelLogin = (data, e) => {
         const email = data.email;
@@ -15,6 +26,7 @@ const Login = () => {
         logIn(email, password)
             .then(result => {
                 console.log(result.user)
+                setCreatedUserEmail(email)
             })
             .catch(err => console.log(err))
     }
@@ -30,6 +42,7 @@ const Login = () => {
                     role: "buyer"
                 }
                 handelSetUserToDatabase(user)
+                setCreatedUserEmail(result.user.email)
             })
             .catch(err => console.log(err))
     }
@@ -58,7 +71,7 @@ const Login = () => {
                     <h2 className='text-center text-3xl font-bold text-white'>Sign In</h2>
                     <form onSubmit={handleSubmit(handelLogin)}>
                         <div className="form-control w-full  my-3">
-                            <input {...register("email", { required: "Email is required" })} type="text" placeholder='Email Address' className="input input-bordered w-full " />
+                            <input {...register("email", { required: "Email is required" })} type="email" placeholder='Email Address' className="input input-bordered w-full " />
                             {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
                         </div>
                         <div className="form-control w-full  my-3">

@@ -3,12 +3,19 @@ import { Helmet } from 'react-helmet-async';
 import { authContext } from '../../../context/AuthProvider/AuthProvider';
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import useToken from '../../../hooks/useToken';
 const Register = () => {
-    const { createUser, GoogleSignIn } = useContext(authContext)
+    const { createUser, GoogleSignIn, updateUser } = useContext(authContext)
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [img, setImg] = useState('')
+    const [createdUserEmail, setCreatedUserEmail] = useState('')
+    const [token] = useToken(createdUserEmail)
+    const navigate = useNavigate()
+
+    if (token) {
+        navigate('/')
+    }
     const imgHostKey = process.env.REACT_APP_ImgBB_Key;
     const handelCreateUser = (data, e) => {
         e.preventDefault()
@@ -17,41 +24,42 @@ const Register = () => {
         const password = data.password;
         const phone = data.phone;
         const role = data.role;
-        const user = {
-            name,
-            email,
-            phone,
-            role,
-            img
-        }
+
         const photo = data.photo[0];
         const formData = new FormData()
         formData.append('image', photo)
-        handelHostImg(formData)
-        createUser(email, password)
-            .then(result => {
-                console.log(result.user)
-                handelSetUserToDatabase(user)
-                e.target.reset()
-            })
-            .catch(err => console.log(err))
-
-    }
-
-    const handelHostImg = photo => {
         const url = `https://api.imgbb.com/1/upload?key=${imgHostKey}`
         fetch(url, {
             method: 'POST',
-            body: photo
+            body: formData
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data)
                 if (data.success) {
-                    setImg(data.data.url)
+                    createUser(email, password)
+                        .then(result => {
+                            const user = {
+                                name,
+                                email,
+                                phone,
+                                role,
+                                img: data.data.url
+                            }
+                            console.log(result.user)
+                            handelSetUserToDatabase(user)
+                            setCreatedUserEmail(email)
+                            handelUpdateUser(name, data.data.url)
+                            e.target.reset()
+                        })
+                        .catch(err => console.log(err))
                 }
             })
+
+
     }
+
+
 
     const handelGoogleSignIn = () => {
         GoogleSignIn()
@@ -64,8 +72,20 @@ const Register = () => {
                     role: "buyer"
                 }
                 handelSetUserToDatabase(user)
+                setCreatedUserEmail(result.user.email)
             })
             .catch(err => console.log(err))
+    }
+
+    const handelUpdateUser = (name, photo) => {
+        const profile = {
+            displayName: name,
+            photoURL: photo
+        }
+        updateUser(profile)
+            .then(result => { }
+            )
+            .catch(err => console.error(err))
     }
 
     const handelSetUserToDatabase = (user) => {
@@ -99,7 +119,7 @@ const Register = () => {
                             {errors.name && <p className='text-red-600'>{errors.name?.message}</p>}
                         </div>
                         <div className="form-control w-full  my-3">
-                            <input {...register("email", { required: "Email is required" })} type="text" placeholder='Email Address' className="input input-bordered w-full " />
+                            <input {...register("email", { required: "Email is required" })} type="email" placeholder='Email Address' className="input input-bordered w-full " />
                             {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
                         </div>
                         <div className="form-control w-full  my-3">
@@ -118,8 +138,8 @@ const Register = () => {
 
                         <input type="file"{...register("photo")} placeholder="Your Photo" className="file-input w-full  my-3" />
                         <select {...register("role")} className="select select-bordered w-full  my-3">
-                            <option value="seller">Seller</option>
                             <option value="buyer">Buyer</option>
+                            <option value="seller">Seller</option>
                         </select>
                         <input className='btn bg-[#004aad] w-full my-3 text-xl font-bold' type="submit" />
                     </form>
