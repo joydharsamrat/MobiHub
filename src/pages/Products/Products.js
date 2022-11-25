@@ -1,13 +1,14 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
+import ProductsCard from './ProductsCard';
 
 const Products = () => {
     const products = useLoaderData();
 
     return (
-        <div>
+        <div className='mx-12 my-12 gap-5'>
             {
-                products?.map(product => <p>{product.name}</p>)
+                products?.map(product => <ProductsCard key={product._id} product={product}></ProductsCard>)
             }
         </div>
     );
