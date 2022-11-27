@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { FcApproval } from "react-icons/fc";
 import Booking from '../../components/Booking';
 import { authContext } from '../../context/AuthProvider/AuthProvider';
+import useAdmin from '../../hooks/useAdmin';
 import useSeller from '../../hooks/useSeller';
 
 const ProductsCard = ({ product }) => {
@@ -9,6 +10,7 @@ const ProductsCard = ({ product }) => {
     const { user } = useContext(authContext)
     const { sellerName, sellerEmail, name, originalPrice, posted_at, sellingPrice, condition, phone, location, img, purchaseYear, description, status, isadvertised } = product;
     const [isVerified] = useSeller(sellerEmail)
+    const [isAdmin] = useAdmin(user.email)
     const [productCondition, setProductCondition] = useState("text-red-500");
     useEffect(() => {
         if (condition === "good") {
@@ -44,7 +46,7 @@ const ProductsCard = ({ product }) => {
                         <div>
                             <h3 className='text-2xl font-bold my-3'>Seller info :</h3>
                             <ul>
-                                <li className='flex items-center gap-3'>Name: <span className='font-bold'>{sellerName}</span> {isVerified && <span><FcApproval className='text-blue-500'></FcApproval></span>}</li>
+                                <li className='flex items-center gap-3'>Name: <span className='font-bold'>{sellerName}</span> {isVerified === "verified" && <span><FcApproval className='text-blue-500'></FcApproval></span>}</li>
                                 <li className='text-lg'>Email: <span className='font-bold'>{sellerEmail}</span></li>
                                 <li className='text-lg'>Phone: <span className='font-bold'>{phone}</span></li>
                             </ul>
@@ -56,7 +58,7 @@ const ProductsCard = ({ product }) => {
                                 posted_at.split('T')[0]
                             }
                         </p>
-                        <label onClick={() => setModal(true)} disabled={product.sellerEmail === user.email} htmlFor="booking-modal" className="btn w-1/2 bg-[#004aad]">Book Now</label>
+                        <label onClick={() => setModal(true)} disabled={product.sellerEmail === user?.email || isAdmin} htmlFor="booking-modal" className="btn w-1/2 bg-[#004aad]">Book Now</label>
 
                     </div>
                     {modal && <Booking setModal={setModal} product={product}></Booking>}

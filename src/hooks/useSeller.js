@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 
 const useSeller = email => {
     const [isSeller, setIsSeller] = useState(false);
-    const [isVerified, setIsVerified] = useState(false)
+    const [isVerified, setIsVerified] = useState('')
     const [isSellerLoading, setIsSellerLoading] = useState(true)
     useEffect(() => {
         if (email) {

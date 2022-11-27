@@ -40,6 +40,9 @@ const Booking = ({ product, setModal }) => {
                         toast.success('Item Booked')
                         setModal(false)
                     }
+                    else {
+                        toast.error(data.message)
+                    }
                 })
 
 

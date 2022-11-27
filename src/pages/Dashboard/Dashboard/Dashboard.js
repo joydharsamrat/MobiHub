@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import ReportedProducts from '../ReportedProducts/ReportedProducts';
 
 const Dashboard = () => {
     return (
@@ -7,7 +8,6 @@ const Dashboard = () => {
             <Helmet>
                 <title>MobiHub-Dashboard</title>
             </Helmet>
-
         </div>
     );
 };
