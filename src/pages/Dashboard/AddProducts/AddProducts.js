@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { authContext } from '../../../context/AuthProvider/AuthProvider';
 
 const AddProducts = () => {
@@ -51,7 +52,12 @@ const AddProducts = () => {
                         }
                     }
                     axios.post(`http://localhost:5000/products?email=${user.email}`, product, headers)
-                        .then(res => console.log(res))
+                        .then(res => {
+                            console.log(res)
+                            if (res.data.acknowledged) {
+                                toast.success('Product Added successfully')
+                            }
+                        })
                         .catch(err => console.log(err))
                 }
             })
@@ -62,7 +68,7 @@ const AddProducts = () => {
 
     return (
         <div className='flex justify-center my-12'>
-            <div className='bg-white border shadow-lg rounded-xl h-fit  p-5'>
+            <div className='bg-slate-100 border shadow-lg rounded-xl h-fit  p-5'>
                 <h2 className='text-center text-3xl font-bold text-black'>Add a product</h2>
                 <form onSubmit={handleSubmit(handelAddProducts)}>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 my-4">

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
+import AdvertisedProducts from '../AdvertisedProducts/AdvertisedProducts';
 import ProductCategories from '../ProductCategories/ProductCategories';
 import TopBanner from '../TopBanner/TopBanner';
 
@@ -10,6 +11,7 @@ const Home = () => {
                 <title>MobiHub-Home</title>
             </Helmet>
             <TopBanner></TopBanner>
+            <AdvertisedProducts></AdvertisedProducts>
             <ProductCategories></ProductCategories>
         </div>
     );

@@ -12,7 +12,7 @@ const Register = () => {
     const [createdUserEmail, setCreatedUserEmail] = useState('')
     const [token] = useToken(createdUserEmail)
     const navigate = useNavigate()
-
+    console.log(createdUserEmail)
     if (token) {
         navigate('/')
     }
@@ -48,7 +48,6 @@ const Register = () => {
                             }
                             console.log(result.user)
                             handelSetUserToDatabase(user)
-                            setCreatedUserEmail(email)
                             handelUpdateUser(name, data.data.url)
                             e.target.reset()
                         })
@@ -72,7 +71,6 @@ const Register = () => {
                     role: "buyer"
                 }
                 handelSetUserToDatabase(user)
-                setCreatedUserEmail(result.user.email)
             })
             .catch(err => console.log(err))
     }
@@ -101,6 +99,7 @@ const Register = () => {
                 console.log(data)
                 if (data.acknowledged) {
                     toast.success('User created successfully')
+                    setCreatedUserEmail(user.email)
                 }
             })
     }

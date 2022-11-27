@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 import { authContext } from '../context/AuthProvider/AuthProvider';
 import useSeller from '../hooks/useSeller';
 import NavBar from '../pages/Shared/NavBar/NavBar';
@@ -11,22 +11,29 @@ const DashboardLayout = () => {
     return (
         <div>
             <NavBar></NavBar>
-            <div className="drawer drawer-mobile">
+            {user && <div className="drawer drawer-mobile">
                 <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content bg-[#8ecae6]">
+                <div className="drawer-content bg-white">
                     <Outlet></Outlet>
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-80 bg-base-100 text-base-content">
+                    <ul className="menu py-4 w-80 bg-slate-100 text-base-content">
                         {
-                            isSeller ? <li><Link to='/dashboard/addProducts'>Add products</Link></li> :
+                            isSeller ?
+                                <>
+                                    <li><NavLink className={({ isActive }) => isActive ? "bg-white font-semibold" : "font-semibold"} to='/dashboard/addProducts'>Add products</NavLink></li>
+                                    <li><NavLink className={({ isActive }) => isActive ? "bg-white font-semibold" : "font-semibold"} to='/dashboard/myProducts'>My products</NavLink></li>
+
+                                </>
+                                :
+
                                 <li><a>Sidebar Item 2</a></li>
                         }
                     </ul>
 
                 </div>
-            </div>
+            </div>}
         </div>
     );
 };
