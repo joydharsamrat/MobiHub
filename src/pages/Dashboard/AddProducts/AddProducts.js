@@ -3,11 +3,13 @@ import axios from 'axios';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { authContext } from '../../../context/AuthProvider/AuthProvider';
 
 const AddProducts = () => {
     const { user } = useContext(authContext)
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate()
     const imgHostKey = process.env.REACT_APP_ImgBB_Key;
     const { data: categories = [] } = useQuery({
         queryKey: ['categories'],
@@ -56,6 +58,7 @@ const AddProducts = () => {
                             console.log(res)
                             if (res.data.acknowledged) {
                                 toast.success('Product Added successfully')
+                                navigate('/dashboard/myProducts')
                             }
                         })
                         .catch(err => console.log(err))

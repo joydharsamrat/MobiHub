@@ -5,6 +5,7 @@ import { authContext } from '../../context/AuthProvider/AuthProvider';
 import useSeller from '../../hooks/useSeller';
 
 const ProductsCard = ({ product }) => {
+    const [modal, setModal] = useState(false)
     const { user } = useContext(authContext)
     const { sellerName, sellerEmail, name, originalPrice, posted_at, sellingPrice, condition, phone, location, img, purchaseYear, description, status, isadvertised } = product;
     const [isVerified] = useSeller(sellerEmail)
@@ -55,10 +56,10 @@ const ProductsCard = ({ product }) => {
                                 posted_at.split('T')[0]
                             }
                         </p>
-                        <label disabled={product.sellerEmail === user.email} htmlFor="booking-modal" className="btn w-1/2 bg-[#004aad]">Book Now</label>
+                        <label onClick={() => setModal(true)} disabled={product.sellerEmail === user.email} htmlFor="booking-modal" className="btn w-1/2 bg-[#004aad]">Book Now</label>
 
                     </div>
-                    <Booking product={product}></Booking>
+                    {modal && <Booking setModal={setModal} product={product}></Booking>}
                 </div>
             </div>
         </div>

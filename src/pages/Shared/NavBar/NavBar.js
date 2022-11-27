@@ -36,7 +36,7 @@ const NavBar = () => {
                 </div>
                 <div className="navbar-end hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">
-                        <li><NavLink to='dashboard'>Dashboard</NavLink></li>
+                        <li><NavLink className={({ isActive }) => isActive ? "bg-slate-200 rounded-xl font-semibold mx-1" : "font-semibold mx-1"} to='/dashboard'>Dashboard</NavLink></li>
                         {
                             user?.uid ?
                                 <li><button onClick={handelLogOut} className='btn rounded-lg btn-ghost bg-[#004aad] text-white hover:text-black'>SignOut</button></li>

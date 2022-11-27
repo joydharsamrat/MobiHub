@@ -1,19 +1,47 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { authContext } from '../context/AuthProvider/AuthProvider';
 import Spinner from './Spinner';
 
-const Booking = ({ product }) => {
+const Booking = ({ product, setModal }) => {
     const { user } = useContext(authContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     if (!product) {
-        return
+        return <Spinner></Spinner>
     }
     else {
-        const { sellerEmail, _id, sellingPrice, name } = product;
+        const { sellerEmail, _id, sellingPrice, name, img } = product;
 
 
-        const handelBooking = () => {
+        const handelBooking = (data, e) => {
+            const product = {
+                buyer: user.displayName,
+                buyerEmail: user.email,
+                seller: sellerEmail,
+                productId: _id,
+                phone: data.phone,
+                location: data.location,
+                name,
+                price: sellingPrice,
+                img
+            }
+            fetch('http://localhost:5000/booked', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: JSON.stringify(product)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.acknowledged) {
+                        toast.success('Item Booked')
+                        setModal(false)
+                    }
+                })
+
 
         }
         return (
@@ -33,11 +61,11 @@ const Booking = ({ product }) => {
                             </div>
                             <div className="form-control w-full  my-3">
                                 <label htmlFor="buyer">Your Name</label>
-                                <input {...register("buyer")} type="text" id='buyer' disabled defaultValue={user.displayName} className="input input-bordered w-full " />
+                                <input {...register("buyer")} type="text" id='buyer' disabled defaultValue={user?.displayName} className="input input-bordered w-full " />
                             </div>
                             <div className="form-control w-full  my-3">
                                 <label htmlFor="buyerEmail">Your Email</label>
-                                <input {...register("buyerEmail")} type="text" id='buyerEmail' disabled defaultValue={user.email} className="input input-bordered w-full " />
+                                <input {...register("buyerEmail")} type="text" id='buyerEmail' disabled defaultValue={user?.email} className="input input-bordered w-full " />
                             </div>
                             <div className="form-control w-full  my-3">
                                 <label htmlFor="phone">Your Phone</label>
