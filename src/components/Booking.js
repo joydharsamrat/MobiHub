@@ -5,13 +5,14 @@ import { authContext } from '../context/AuthProvider/AuthProvider';
 import Spinner from './Spinner';
 
 const Booking = ({ product, setModal }) => {
+    console.log(product)
     const { user } = useContext(authContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     if (!product) {
         return <Spinner></Spinner>
     }
     else {
-        const { sellerEmail, _id, sellingPrice, name, img } = product;
+        const { sellerEmail, _id, sellingPrice, price, name, img } = product;
 
 
         const handelBooking = (data, e) => {
@@ -38,10 +39,14 @@ const Booking = ({ product, setModal }) => {
                 .then(data => {
                     if (data.acknowledged) {
                         toast.success('Item Booked')
+                        e.target.reset()
                         setModal(false)
+
                     }
                     else {
                         toast.error(data.message)
+                        e.target.reset()
+                        setModal(false)
                     }
                 })
 
@@ -60,7 +65,7 @@ const Booking = ({ product, setModal }) => {
                             </div>
                             <div className="form-control w-full  my-3">
                                 <label htmlFor="price">price (BDT)</label>
-                                <input {...register("price")} type="text" id='price' disabled defaultValue={sellingPrice} className="input input-bordered w-full " />
+                                <input {...register("price")} type="text" id='price' disabled defaultValue={sellingPrice ? sellingPrice : price} className="input input-bordered w-full " />
                             </div>
                             <div className="form-control w-full  my-3">
                                 <label htmlFor="buyer">Your Name</label>

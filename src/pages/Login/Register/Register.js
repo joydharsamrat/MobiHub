@@ -6,7 +6,9 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import useToken from '../../../hooks/useToken';
+import SmallSpinner from '../../../components/SmallSpinner';
 const Register = () => {
+    const [loading, setLoading] = useState(false)
     const { createUser, GoogleSignIn, updateUser } = useContext(authContext)
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [createdUserEmail, setCreatedUserEmail] = useState('')
@@ -18,6 +20,7 @@ const Register = () => {
     }
     const imgHostKey = process.env.REACT_APP_ImgBB_Key;
     const handelCreateUser = (data, e) => {
+        setLoading(true)
         e.preventDefault()
         const name = data.name;
         const email = data.email;
@@ -51,7 +54,10 @@ const Register = () => {
                             handelUpdateUser(name, data.data.url)
                             e.target.reset()
                         })
-                        .catch(err => console.log(err))
+                        .catch(err => {
+                            console.log(err)
+                            setLoading(false)
+                        })
                 }
             })
 
@@ -72,7 +78,9 @@ const Register = () => {
                 }
                 handelSetUserToDatabase(user)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     const handelUpdateUser = (name, photo) => {
@@ -100,6 +108,7 @@ const Register = () => {
                 if (data.acknowledged) {
                     toast.success('User created successfully')
                     setCreatedUserEmail(user.email)
+                    setLoading(false)
                 }
             })
     }
@@ -140,7 +149,7 @@ const Register = () => {
                             <option value="buyer">Buyer</option>
                             <option value="seller">Seller</option>
                         </select>
-                        <input className='btn bg-[#004aad] w-full my-3 text-xl font-bold' type="submit" />
+                        {loading ? <p className='flex justify-center'><SmallSpinner></SmallSpinner></p> : <input className='btn bg-[#004aad] w-full my-3 text-xl font-bold' type="submit" />}
                     </form>
                     <button onClick={handelGoogleSignIn} className='btn bg-[#004aad] w-full my-3 text-xl font-bold'><FcGoogle></FcGoogle>oo<FcGoogle></FcGoogle>le</button>
                 </div>

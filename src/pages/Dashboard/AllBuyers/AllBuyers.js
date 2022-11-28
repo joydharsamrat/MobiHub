@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { authContext } from '../../../context/AuthProvider/AuthProvider';
 import Spinner from '../../../components/Spinner'
+import toast from 'react-hot-toast';
 
 
 const AllBuyers = () => {
@@ -19,10 +20,24 @@ const AllBuyers = () => {
             return data
         }
     })
-    console.log(buyers)
+    const handelDeleteUser = (email) => {
+        fetch(`http://localhost:5000/users/${email}?email=${user.email}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    toast.success('user deleted')
+                    refetch()
+                }
+            })
+    }
     return (
         <div className='m-12'>
-            <h2 className='text-5xl font-bold text-center'>All Buyers</h2>
+            <h2 className='text-3xl font-bold text-center'>All Buyers</h2>
             {
                 isLoading ? <Spinner></Spinner> :
                     <div className='my-12'>
@@ -53,7 +68,7 @@ const AllBuyers = () => {
                                             </td>
                                             <td>{buyer.email}</td>
                                             <th>
-                                                <button className="btn bg-red-600 btn-xs border-none">Remove</button>
+                                                <button onClick={() => handelDeleteUser(buyer.email)} className="btn bg-red-600 btn-xs border-none">Remove</button>
                                             </th>
                                         </tr>)
                                     }

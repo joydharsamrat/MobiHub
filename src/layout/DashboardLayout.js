@@ -23,7 +23,11 @@ const DashboardLayout = () => {
                     <ul className="menu py-4 w-80 bg-slate-100 text-base-content">
 
                         {
-                            !isAdmin && <li><NavLink className={({ isActive }) => isActive ? "bg-white font-semibold" : "font-semibold"} to='/dashboard/myOrders'>My Orders</NavLink></li>
+                            !isAdmin && <>
+                                <li><NavLink className={({ isActive }) => isActive ? "bg-white font-semibold" : "font-semibold"} to='/dashboard/myOrders'>My Orders</NavLink></li>
+                                <li><NavLink className={({ isActive }) => isActive ? "bg-white font-semibold" : "font-semibold"} to='/dashboard/myWishlist'>My Wishlist</NavLink></li>
+                            </>
+
                         }
                         {
                             isAdmin &&
@@ -38,6 +42,7 @@ const DashboardLayout = () => {
                             <>
                                 <li><NavLink className={({ isActive }) => isActive ? "bg-white font-semibold" : "font-semibold"} to='/dashboard/addProducts'>Add products</NavLink></li>
                                 <li><NavLink className={({ isActive }) => isActive ? "bg-white font-semibold" : "font-semibold"} to='/dashboard/myProducts'>My products</NavLink></li>
+                                <li><NavLink className={({ isActive }) => isActive ? "bg-white font-semibold" : "font-semibold"} to='/dashboard/myBuyers'>My Buyers</NavLink></li>
 
                             </>
                         }

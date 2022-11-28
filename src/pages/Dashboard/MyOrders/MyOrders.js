@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import Spinner from '../../../components/Spinner';
 import { authContext } from '../../../context/AuthProvider/AuthProvider';
 
 const MyOrders = () => {
@@ -17,6 +19,27 @@ const MyOrders = () => {
             return data
         }
     })
+
+    const handelCancelBooking = (id) => {
+        console.log(id)
+        fetch(`http://localhost:5000/booked?buyerEmail=${user.email}&&productId=${id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.deletedCount > 0) {
+                    toast.success('Booking canceled')
+                }
+            })
+    }
+
+    if (isLoading) {
+        return <Spinner></Spinner>
+    }
     return (
         <div className='mx-12'>
             <h2 className='text-5xl font-bold text-center'>My Orders</h2>
@@ -48,8 +71,14 @@ const MyOrders = () => {
                                     </td>
                                     <td>BDT {product.price}</td>
                                     <th>
-                                        <Link to={`/dashboard/payment/${product._id}`}><button className="btn bg-green-600 btn-xs border-none">Pay</button></Link>
-                                        <button className="btn bg-red-600 btn-xs mx-2 border-none">Cancel</button>
+                                        {
+                                            product.status === "sold" || product.status === "paid" ? <p className='text-green-400'>{product.status}</p> :
+                                                <>
+                                                    <Link to={`/dashboard/payment/${product._id}`}><button className="btn bg-green-600 btn-xs border-none">Pay</button></Link>
+                                                    <button onClick={() => handelCancelBooking(product._id)} className="btn bg-red-600 btn-xs mx-2 border-none">Cancel</button>
+                                                </>
+                                        }
+
                                     </th>
                                 </tr>)
                             }

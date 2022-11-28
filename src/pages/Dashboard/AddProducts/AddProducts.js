@@ -1,12 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import SmallSpinner from '../../../components/SmallSpinner';
 import { authContext } from '../../../context/AuthProvider/AuthProvider';
 
 const AddProducts = () => {
+    const [loading, setLoading] = useState(false)
     const { user } = useContext(authContext)
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate()
@@ -23,7 +25,7 @@ const AddProducts = () => {
         const photo = data.img[0];
         const formData = new FormData()
         formData.append('image', photo)
-
+        setLoading(true)
         const url = `https://api.imgbb.com/1/upload?key=${imgHostKey}`
         fetch(url, {
             method: 'POST',
@@ -45,7 +47,8 @@ const AddProducts = () => {
                         location: data.location,
                         img: result.data.url,
                         purchaseYear: data.purchaseYear,
-                        description: data.description
+                        description: data.description,
+                        status: "available"
                     }
                     const headers = {
                         headers: {
@@ -57,6 +60,7 @@ const AddProducts = () => {
                         .then(res => {
                             console.log(res)
                             if (res.data.acknowledged) {
+                                setLoading(false)
                                 toast.success('Product Added successfully')
                                 navigate('/dashboard/myProducts')
                             }
@@ -145,7 +149,9 @@ const AddProducts = () => {
                             {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
                         </div>
                     </div>
-                    <input className='btn bg-[#004aad] w-full my-4 text-xl font-bold' type="submit" />
+                    {
+                        loading ? <div className='flex justify-center'><SmallSpinner></SmallSpinner></div> : <input className='btn bg-[#004aad] w-full my-4 text-xl font-bold' type="submit" />
+                    }
                 </form>
             </div>
         </div>

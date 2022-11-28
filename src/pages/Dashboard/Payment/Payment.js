@@ -1,7 +1,8 @@
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigation } from 'react-router-dom';
+import Spinner from '../../../components/Spinner';
 import CheckoutForm from './CheckoutForm';
 
 const pk = process.env.REACT_APP_PK
@@ -9,7 +10,11 @@ const pk = process.env.REACT_APP_PK
 const stripePromise = loadStripe(pk);
 
 const Payment = () => {
-    const product = useLoaderData()
+    const product = useLoaderData();
+    const navigation = useNavigation();
+    if (navigation.state === "loading") {
+        return <Spinner></Spinner>
+    }
     return (
         <div>
             <h2 className='text-5xl font-bold text-center'>Payment</h2>
@@ -21,7 +26,7 @@ const Payment = () => {
                         <hr />
                         <div>
                             <Elements stripe={stripePromise}>
-                                <CheckoutForm />
+                                <CheckoutForm product={product} />
                             </Elements>
                         </div>
                     </div>

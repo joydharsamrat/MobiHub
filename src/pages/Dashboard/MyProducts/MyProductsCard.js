@@ -50,11 +50,14 @@ const MyProductsCard = ({ product, refetch }) => {
             <div className="card-body items-center text-center">
                 <h2 className="card-title">{name}</h2>
                 <p>BDT{sellingPrice}</p>
-                <p><small className='text-Green text-bold'>{status}</small></p>
-                <div className="card-actions">
-                    <button onClick={handelDeleteProduct} className="btn btn-error">Delete</button>
-                    <button onClick={handelAdvertise} className="btn bg-[#004aad]" disabled={advertised}>Advertise</button>
-                </div>
+                <p><small className='text-Green font-bold'>{status}</small></p>
+                {
+                    status === 'available' &&
+                    <div className="card-actions">
+                        <button onClick={handelDeleteProduct} className="btn btn-error">Delete</button>
+                        <button onClick={handelAdvertise} className="btn bg-[#004aad]" disabled={advertised}>Advertise</button>
+                    </div>
+                }
             </div>
         </div >
     );

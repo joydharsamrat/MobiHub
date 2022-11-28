@@ -5,8 +5,10 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { authContext } from '../../../context/AuthProvider/AuthProvider';
 import { FcGoogle } from "react-icons/fc";
 import useToken from '../../../hooks/useToken';
+import SmallSpinner from '../../../components/SmallSpinner';
 
 const Login = () => {
+    const [loading, setLoading] = useState(false)
     const { logIn, GoogleSignIn } = useContext(authContext)
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [createdUserEmail, setCreatedUserEmail] = useState('')
@@ -21,6 +23,7 @@ const Login = () => {
 
 
     const handelLogin = (data, e) => {
+        setLoading(true)
         const email = data.email;
         const password = data.password;
         logIn(email, password)
@@ -28,7 +31,10 @@ const Login = () => {
                 console.log(result.user)
                 setCreatedUserEmail(email)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err)
+                setLoading(false)
+            })
     }
 
     const handelGoogleSignIn = () => {
@@ -58,6 +64,7 @@ const Login = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data)
+                setLoading(false)
             })
     }
 
@@ -78,7 +85,7 @@ const Login = () => {
                             <input {...register("password", { required: "Password is required" })} type="password" placeholder='Password' className="input input-bordered w-full " />
                             {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                         </div>
-                        <input className='btn bg-[#004aad] w-full my-3 text-xl font-bold' type="submit" />
+                        {loading ? <p className='flex justify-center'><SmallSpinner></SmallSpinner></p> : <input className='btn bg-[#004aad] w-full my-3 text-xl font-bold' type="submit" />}
                     </form>
                     <button onClick={handelGoogleSignIn} className='btn bg-[#004aad] w-full my-3 text-xl font-bold'><FcGoogle></FcGoogle>oo<FcGoogle></FcGoogle>le</button>
                 </div>

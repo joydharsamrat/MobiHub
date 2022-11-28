@@ -17,6 +17,8 @@ import AdminRoute from "../AdminRoute/AdminRoute";
 import AllSellers from "../../pages/Dashboard/AllSellers/AllSellers";
 import AllBuyers from "../../pages/Dashboard/AllBuyers/AllBuyers";
 import Payment from "../../pages/Dashboard/Payment/Payment";
+import MyWishlist from "../../pages/Dashboard/MyWishlist/MyWishlist";
+import MyBuyers from "../../pages/Dashboard/MyBuyers/MyBuyers";
 
 export const router = createBrowserRouter([
     {
@@ -76,6 +78,14 @@ export const router = createBrowserRouter([
                 path: '/dashboard/payment/:id',
                 loader: ({ params }) => fetch(`http://localhost:5000/booked/${params.id}`, { headers: { authorization: `bearer ${localStorage.getItem('accessToken')}` } }),
                 element: <PrivateRoute><Payment></Payment></PrivateRoute>
+            },
+            {
+                path: '/dashboard/myWishlist',
+                element: <PrivateRoute><MyWishlist></MyWishlist></PrivateRoute>
+            },
+            {
+                path: '/dashboard/myBuyers',
+                element: <SellerRoute><MyBuyers></MyBuyers></SellerRoute>
             }
         ]
     },
