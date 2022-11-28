@@ -11,7 +11,7 @@ const MyOrders = () => {
     const { data: products = [], isLoading } = useQuery({
         queryKey: ['booked'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/booked?email=${user.email}`, {
+            const res = await fetch(`https://mobihub-server.vercel.app/booked?email=${user.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -23,7 +23,7 @@ const MyOrders = () => {
 
     const handelCancelBooking = (id) => {
         console.log(id)
-        fetch(`http://localhost:5000/booked?buyerEmail=${user.email}&&productId=${id}`, {
+        fetch(`https://mobihub-server.vercel.app/booked?buyerEmail=${user.email}&&productId=${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

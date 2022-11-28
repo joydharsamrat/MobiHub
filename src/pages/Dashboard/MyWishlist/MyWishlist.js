@@ -10,7 +10,7 @@ const MyWishlist = () => {
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['wishlist'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/wishlist?email=${user.email}`, {
+            const res = await fetch(`https://mobihub-server.vercel.app/wishlist?email=${user.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }

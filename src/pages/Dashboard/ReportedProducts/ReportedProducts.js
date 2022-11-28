@@ -10,7 +10,7 @@ const ReportedProducts = () => {
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['booked'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/reported?email=${user.email}`, {
+            const res = await fetch(`https://mobihub-server.vercel.app/reported?email=${user.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -22,7 +22,7 @@ const ReportedProducts = () => {
     const handelDeleteProduct = (_id) => {
         const confirm = window.confirm("Are you sure ?")
         if (confirm) {
-            fetch(`http://localhost:5000/products/${_id}?email=${user.email}`, {
+            fetch(`https://mobihub-server.vercel.app/products/${_id}?email=${user.email}`, {
                 method: "DELETE",
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`

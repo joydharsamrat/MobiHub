@@ -33,7 +33,7 @@ const ProductsCard = ({ product }) => {
     const { data: seller = [], isLoading } = useQuery({
         queryKey: ['seller'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/users?email=${sellerEmail}`, {
+            const res = await fetch(`https://mobihub-server.vercel.app/users?email=${sellerEmail}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`,
                 }
@@ -59,7 +59,7 @@ const ProductsCard = ({ product }) => {
             }
         }
 
-        axios.post(`http://localhost:5000/wishlist`, wishedProduct, headers)
+        axios.post(`https://mobihub-server.vercel.app/wishlist`, wishedProduct, headers)
             .then(res => {
                 if (res.data.acknowledged) {
                     toast.success('Product Added To Wishlist')
@@ -75,7 +75,7 @@ const ProductsCard = ({ product }) => {
     }
 
     const handelReport = () => {
-        fetch(`http://localhost:5000/reported/${_id}`, {
+        fetch(`https://mobihub-server.vercel.app/reported/${_id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`,

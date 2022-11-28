@@ -12,7 +12,7 @@ const AllBuyers = () => {
     const { data: buyers = [], isLoading, refetch } = useQuery({
         queryKey: ['buyers'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/buyers?email=${user.email}`, {
+            const res = await fetch(`https://mobihub-server.vercel.app/buyers?email=${user.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -22,7 +22,7 @@ const AllBuyers = () => {
         }
     })
     const handelDeleteUser = (email) => {
-        fetch(`http://localhost:5000/users/${email}?email=${user.email}`, {
+        fetch(`https://mobihub-server.vercel.app/users/${email}?email=${user.email}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

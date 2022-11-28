@@ -2,10 +2,11 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { authContext } from '../context/AuthProvider/AuthProvider';
+import SmallSpinner from './SmallSpinner';
 import Spinner from './Spinner';
 
 const Booking = ({ product, setModal }) => {
-    console.log(product)
+    const [loading, setLoading] = useState(false)
     const { user } = useContext(authContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     if (!product) {
@@ -16,6 +17,7 @@ const Booking = ({ product, setModal }) => {
 
 
         const handelBooking = (data, e) => {
+            setLoading(true)
             const product = {
                 buyer: user.displayName,
                 buyerEmail: user.email,
@@ -27,7 +29,7 @@ const Booking = ({ product, setModal }) => {
                 price: sellingPrice,
                 img
             }
-            fetch('http://localhost:5000/booked', {
+            fetch('https://mobihub-server.vercel.app/booked', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
@@ -40,13 +42,16 @@ const Booking = ({ product, setModal }) => {
                     if (data.acknowledged) {
                         toast.success('Item Booked')
                         e.target.reset()
+                        setLoading(false)
                         setModal(false)
 
                     }
                     else {
                         toast.error(data.message)
                         e.target.reset()
+                        setLoading(false)
                         setModal(false)
+
                     }
                 })
 
@@ -85,7 +90,9 @@ const Booking = ({ product, setModal }) => {
                                 <input {...register("location", { required: "Location is required" })} id='location' type="text" placeholder='Meeting location' className="input input-bordered w-full " />
                                 {errors.location && <p className='text-red-600'>{errors.location?.message}</p>}
                             </div>
-                            <input className='btn bg-[#004aad] w-full my-3 text-xl font-bold' type="submit" />
+                            {
+                                loading ? <p className='flex justify-center'><SmallSpinner></SmallSpinner></p> : <input className='btn bg-[#004aad] w-full my-3 text-xl font-bold' type="submit" />
+                            }
                         </form>
                     </div>
                 </div>

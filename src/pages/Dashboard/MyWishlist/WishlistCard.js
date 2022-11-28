@@ -7,7 +7,7 @@ const WishlistCard = ({ product, refetch }) => {
     const { name, img, price, buyerEmail, productId } = product
 
     const handelRemoveFromWishlist = () => {
-        fetch(`http://localhost:5000/wishlist?buyerEmail=${buyerEmail}&&productId=${productId}`, {
+        fetch(`https://mobihub-server.vercel.app/wishlist?buyerEmail=${buyerEmail}&&productId=${productId}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

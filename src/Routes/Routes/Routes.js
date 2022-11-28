@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
             {
                 path: '/products/:id',
                 element: <PrivateRoute><Products></Products></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/products/${params.id}`, { headers: { authorization: `bearer ${localStorage.getItem('accessToken')}` } })
+                loader: ({ params }) => fetch(`https://mobihub-server.vercel.app/products/${params.id}`, { headers: { authorization: `bearer ${localStorage.getItem('accessToken')}` } })
             }
         ]
     },
@@ -81,7 +81,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/payment/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/booked/${params.id}`, { headers: { authorization: `bearer ${localStorage.getItem('accessToken')}` } }),
+                loader: ({ params }) => fetch(`https://mobihub-server.vercel.app/booked/${params.id}`, { headers: { authorization: `bearer ${localStorage.getItem('accessToken')}` } }),
                 element: <PrivateRoute><Payment></Payment></PrivateRoute>
             },
             {

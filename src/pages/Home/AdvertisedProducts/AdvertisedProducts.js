@@ -10,7 +10,7 @@ const AdvertisedProducts = () => {
     const { data: products = [] } = useQuery({
         queryKey: ['advertised'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/advertisedProducts')
+            const res = await fetch('https://mobihub-server.vercel.app/advertisedProducts')
             const data = await res.json()
             return data;
         }

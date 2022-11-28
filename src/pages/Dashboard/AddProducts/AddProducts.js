@@ -17,7 +17,7 @@ const AddProducts = () => {
     const { data: categories = [] } = useQuery({
         queryKey: ['categories'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/categories')
+            const res = await fetch('https://mobihub-server.vercel.app/categories')
             const data = await res.json()
             return data;
         }
@@ -57,7 +57,7 @@ const AddProducts = () => {
                             authorization: `bearer ${localStorage.getItem('accessToken')}`,
                         }
                     }
-                    axios.post(`http://localhost:5000/products?email=${user.email}`, product, headers)
+                    axios.post(`https://mobihub-server.vercel.app/products?email=${user.email}`, product, headers)
                         .then(res => {
                             console.log(res)
                             if (res.data.acknowledged) {

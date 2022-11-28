@@ -9,7 +9,7 @@ const MyBuyers = () => {
     const { data: buyers = [], isLoading } = useQuery({
         queryKey: ['buyers'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/payments?email=${user.email}`, {
+            const res = await fetch(`https://mobihub-server.vercel.app/payments?email=${user.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }

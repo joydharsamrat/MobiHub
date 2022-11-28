@@ -11,7 +11,7 @@ const MyProducts = () => {
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['myProducts'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/SellerProducts?email=${user.email}`, {
+            const res = await fetch(`https://mobihub-server.vercel.app/SellerProducts?email=${user.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }

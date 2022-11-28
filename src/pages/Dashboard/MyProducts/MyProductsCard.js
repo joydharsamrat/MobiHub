@@ -9,7 +9,7 @@ const MyProductsCard = ({ product, refetch }) => {
     const handelDeleteProduct = () => {
         const confirm = window.confirm("Are you sure ?")
         if (confirm) {
-            fetch(`http://localhost:5000/products/${_id}?email=${user.email}`, {
+            fetch(`https://mobihub-server.vercel.app/products/${_id}?email=${user.email}`, {
                 method: "DELETE",
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -26,7 +26,7 @@ const MyProductsCard = ({ product, refetch }) => {
         }
     }
     const handelAdvertise = () => {
-        fetch(`http://localhost:5000/products/advertised/${_id}?email=${user.email}`, {
+        fetch(`https://mobihub-server.vercel.app/products/advertised/${_id}?email=${user.email}`, {
             method: "PUT",
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
