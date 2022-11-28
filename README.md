@@ -1,6 +1,21 @@
 # adminInfo :
 email:joydharsamrat@gmail.compact
-password:Samrat@52
+password:123456Aa#
+
+# MobiHub
+# live site : 
+<ul>
+<li>MobiHub Is a mobile phone resale website, developed with react .</li>
+<li>It has firebase authentication.</li>
+<li>there can be 3 types of users on this website,  Admin,Seller and buyer</li>
+<li>every type of user has different dashboard routes, one can not enter other users route.</li>
+<li>Authorization has managed by jwt.</li>
+<li>User must login to book any product or see his/her booked product or pay for that.</li>
+<li>A user can add a product to his/her wishlist to buy letter</li>
+<li>If there is any issue with any product user can report it to the admin,</li>
+<li>Admin can delete reported product , any any user</li>
+<li>This website is made using react,tailwind css, react router,express js and mongodb</li>
+</ul>
 
 
 # Getting Started with Create React App

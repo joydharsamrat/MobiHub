@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import { Helmet } from 'react-helmet-async';
 import Spinner from '../../../components/Spinner';
 import { authContext } from '../../../context/AuthProvider/AuthProvider';
 
@@ -22,6 +23,9 @@ const MyBuyers = () => {
     }
     return (
         <div className='mx-12'>
+            <Helmet>
+                <title>MobiHub-My-Buyers</title>
+            </Helmet>
             <h2 className='text-5xl font-bold text-center'>My Orders</h2>
             <div className='my-12'>
                 <div className="overflow-x-auto w-full">

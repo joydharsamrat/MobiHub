@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { authContext } from '../../../context/AuthProvider/AuthProvider';
 import Spinner from '../../../components/Spinner'
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet-async';
 
 
 const AllBuyers = () => {
@@ -36,7 +37,10 @@ const AllBuyers = () => {
             })
     }
     return (
-        <div className='m-12'>
+        <div className='lg:m-12'>
+            <Helmet>
+                <title>MobiHub-All-Buyers</title>
+            </Helmet>
             <h2 className='text-3xl font-bold text-center'>All Buyers</h2>
             {
                 isLoading ? <Spinner></Spinner> :

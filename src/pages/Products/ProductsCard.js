@@ -128,7 +128,7 @@ const ProductsCard = ({ product }) => {
                     </div>
 
                     <div className="card-actions justify-around">
-                        <button onClick={handelReport} className='btn btn-error'>Report</button>
+                        <button onClick={handelReport} disabled={product.sellerEmail === user?.email || isAdmin} className='btn btn-error'>Report</button>
                         <label onClick={() => setModal(true)} disabled={product.sellerEmail === user?.email || isAdmin} htmlFor="booking-modal" className="btn w-1/2 bg-[#004aad]">Book Now</label>
                         {
                             !isAdmin && <p className='absolute top-0 right-0 w-fit' title='Add to Wishlist'>{loading ? <SmallSpinner></SmallSpinner> : <AiFillFileAdd onClick={handelAddToWishlist} className='text-[#004aad] text-3xl cursor-pointer'></AiFillFileAdd>}</p>

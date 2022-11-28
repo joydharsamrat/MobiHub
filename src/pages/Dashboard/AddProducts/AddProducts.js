@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -74,7 +75,10 @@ const AddProducts = () => {
 
 
     return (
-        <div className='flex justify-center my-12'>
+        <div className='flex justify-center my-12 lg:mx-12'>
+            <Helmet>
+                <title>MobiHub-Add-Products</title>
+            </Helmet>
             <div className='bg-slate-100 border shadow-lg rounded-xl h-fit  p-5'>
                 <h2 className='text-center text-3xl font-bold text-black'>Add a product</h2>
                 <form onSubmit={handleSubmit(handelAddProducts)}>

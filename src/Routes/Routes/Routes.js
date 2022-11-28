@@ -19,6 +19,7 @@ import AllBuyers from "../../pages/Dashboard/AllBuyers/AllBuyers";
 import Payment from "../../pages/Dashboard/Payment/Payment";
 import MyWishlist from "../../pages/Dashboard/MyWishlist/MyWishlist";
 import MyBuyers from "../../pages/Dashboard/MyBuyers/MyBuyers";
+import Blogs from "../../pages/Blogs/Blogs";
 
 export const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>
+            },
+            {
+                path: '/blogs',
+                element: <Blogs></Blogs>
             },
             {
                 path: '/login',

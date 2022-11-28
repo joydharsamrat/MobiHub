@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import Spinner from '../../../components/Spinner';
@@ -42,6 +43,9 @@ const MyOrders = () => {
     }
     return (
         <div className='mx-12'>
+            <Helmet>
+                <title>MobiHub-My-Orders</title>
+            </Helmet>
             <h2 className='text-5xl font-bold text-center'>My Orders</h2>
             <div className='my-12'>
                 <div className="overflow-x-auto w-full">

@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { authContext } from '../../../context/AuthProvider/AuthProvider';
 import Spinner from '../../../components/Spinner';
 import MyProductsCard from './MyProductsCard';
+import { Helmet } from 'react-helmet-async';
 
 const MyProducts = () => {
     const { user } = useContext(authContext);
@@ -21,6 +22,9 @@ const MyProducts = () => {
     })
     return (
         <div className='m-12'>
+            <Helmet>
+                <title>MobiHub-My-Products</title>
+            </Helmet>
             {
                 isLoading ? <Spinner></Spinner> :
 

@@ -1,6 +1,7 @@
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useLoaderData, useNavigation } from 'react-router-dom';
 import Spinner from '../../../components/Spinner';
 import CheckoutForm from './CheckoutForm';
@@ -18,6 +19,9 @@ const Payment = () => {
     return (
         <div>
             <h2 className='text-5xl font-bold text-center'>Payment</h2>
+            <Helmet>
+                <title>MobiHub-Payment</title>
+            </Helmet>
             <div className='flex justify-center mt-12'>
                 <div className="card w-96 bg-slate-100 shadow-xl">
                     <div className="card-body">

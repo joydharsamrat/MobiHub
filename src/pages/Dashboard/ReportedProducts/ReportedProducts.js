@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import Spinner from '../../../components/Spinner';
 import { authContext } from '../../../context/AuthProvider/AuthProvider';
@@ -43,6 +44,9 @@ const ReportedProducts = () => {
             {
                 isLoading ? <Spinner></Spinner> :
                     <div className='my-12'>
+                        <Helmet>
+                            <title>MobiHub-Reported-Products</title>
+                        </Helmet>
                         <div className="overflow-x-auto w-full">
                             <table className="table w-full">
                                 <thead>

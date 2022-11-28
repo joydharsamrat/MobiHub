@@ -4,6 +4,7 @@ import { authContext } from '../../../context/AuthProvider/AuthProvider';
 import Spinner from '../../../components/Spinner'
 import toast from 'react-hot-toast';
 import SmallSpinner from '../../../components/SmallSpinner';
+import { Helmet } from 'react-helmet-async';
 
 const AllSellers = () => {
     const { user } = useContext(authContext)
@@ -55,7 +56,10 @@ const AllSellers = () => {
             })
     }
     return (
-        <div className='m-12'>
+        <div className='lg:m-12'>
+            <Helmet>
+                <title>MobiHub-All-Sellers</title>
+            </Helmet>
             <h2 className='text-3xl font-bold text-center'>All Sellers</h2>
             {
                 isLoading ? <Spinner></Spinner> :
