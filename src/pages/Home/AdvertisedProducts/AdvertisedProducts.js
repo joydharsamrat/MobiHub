@@ -19,7 +19,7 @@ const AdvertisedProducts = () => {
     return (
         <>
             {
-                products &&
+                products.length > 0 &&
                 <div className="lg:mx-12 my-20 rounded-xl bg-slate-100">
                     <Swiper
                         spaceBetween={30}

@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import AdvertisedProducts from '../AdvertisedProducts/AdvertisedProducts';
 import ProductCategories from '../ProductCategories/ProductCategories';
+import Reviews from '../Reviews/Reviews';
 import TopBanner from '../TopBanner/TopBanner';
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
             <TopBanner></TopBanner>
             <AdvertisedProducts></AdvertisedProducts>
             <ProductCategories></ProductCategories>
+            <Reviews></Reviews>
         </div>
     );
 };
