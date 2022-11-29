@@ -1,6 +1,3 @@
-# adminInfo :
-# email: joydharsamrat@gmail.com
-# password:123456Aa#
 
 # MobiHub
 # live site : https://mobihub-521d5.web.app/
