@@ -6,7 +6,6 @@
 <li>It has firebase authentication.</li>
 <li>there can be 3 types of users on this website,  Admin,Seller and buyer</li>
 <li>every type of user has different dashboard routes, one can not enter other users route.</li>
-<li>Authorization has managed by jwt.</li>
 <li>User must login to book any product or see his/her booked product or pay for that.</li>
 <li>A user can add a product to his/her wishlist to buy letter</li>
 <li>If there is any issue with any product user can report it to the admin,</li>
