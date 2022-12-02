@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from "framer-motion"
 
 const ProductCategories = () => {
     const { data: categories = [] } = useQuery({
@@ -22,7 +23,7 @@ const ProductCategories = () => {
                     >
                         <div className="card-body text-center">
                             <h2 className=' text-4xl font-semibold my-3'>{category.name}</h2>
-                            <Link to={`/products/${category._id}`}><button className='bg-[#004aad] px-2 py-1 text-white rounded-lg'>Visit Products</button></Link>
+                            <Link to={`/products/${category._id}`}><motion.button className='bg-[#004aad] px-2 py-1 text-white rounded-lg'>Visit Products</motion.button></Link>
                         </div>
                     </div>)
                 }
