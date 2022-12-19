@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay } from "swiper";
+import { EffectCreative } from "swiper"
 import { useQuery } from "@tanstack/react-query";
 
 const AdvertisedProducts = () => {
@@ -20,21 +21,33 @@ const AdvertisedProducts = () => {
         <>
             {
                 products.length > 0 &&
-                <div className="lg:mx-12 my-20 rounded-xl bg-slate-100">
+                <div data-aos="fade-up" className="lg:mx-12 my-20 rounded-xl">
                     <Swiper
+                        grabCursor={true}
+                        effect={"creative"}
+                        creativeEffect={{
+                            prev: {
+                                shadow: true,
+                                translate: [0, 0, -400],
+                            },
+                            next: {
+                                translate: ["100%", 0, 0],
+                            },
+                        }}
                         spaceBetween={30}
                         centeredSlides={true}
                         autoplay={{
                             delay: 2500,
                             disableOnInteraction: true,
                         }}
-                        modules={[Autoplay]}
+                        loop={true}
+                        modules={[Autoplay, EffectCreative]}
                         className="mySwiper"
                     >
 
                         {
                             products.map(product => <SwiperSlide key={product._id}>
-                                <div className="card lg:card-side lg:p-5 lg:h-96">
+                                <div className="card lg:card-side lg:p-5 lg:h-96 bg-slate-100">
                                     <figure><img className="lg:w-96" src={product.img} alt="Movie" /></figure>
                                     <div className="card-body lg:w-1/2 mx-12">
                                         <h2 className="card-title">{product.name}</h2>
