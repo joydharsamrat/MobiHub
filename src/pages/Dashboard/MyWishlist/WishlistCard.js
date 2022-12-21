@@ -24,9 +24,9 @@ const WishlistCard = ({ product, refetch }) => {
 
     return (
         <div className='my-12'>
-            <div className="card w-96 bg-slate-100 shadow-xl">
-                <figure className="px-10 pt-10">
-                    <img src={img} alt="Shoes" className="rounded-xl" />
+            <div className="card bg-slate-100 shadow-xl">
+                <figure className="px-10 pt-10 ">
+                    <img src={img} alt={name} className="rounded-xl max-h-48" />
                 </figure>
                 <div className="card-body items-center text-center">
                     <h2 className="card-title">{name}</h2>

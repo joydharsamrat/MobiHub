@@ -29,7 +29,7 @@ const MyWishlist = () => {
                 <title>MobiHub-My-Wishlist</title>
             </Helmet>
             <h2 className='text-5xl font-bold text-center'>My Wishlist</h2>
-            <div className='grid grid-cols-1 lg:grid-cols-3'>
+            <div className='grid grid-cols-1 lg:grid-cols-3 gap-5 justify-center'>
                 {
                     products.map(product => <WishlistCard key={product._id} product={product} refetch={refetch}></WishlistCard>)
                 }
