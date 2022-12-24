@@ -13,6 +13,8 @@
 <li>This website is made using react,tailwind css, react router,express js and mongodb</li>
 </ul>
 
+Admin email:joydharsamrat@gmail.com
+Password: 123456Aa#
 
 # Getting Started with Create React App
 
