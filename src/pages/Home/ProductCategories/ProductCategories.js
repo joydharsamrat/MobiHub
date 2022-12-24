@@ -29,8 +29,8 @@ const ProductCategories = () => {
                         key={category._id}
                     >
                         <div className="card-body text-center">
-                            <h2 className={`${btn === category._id ? "absolute top-4 right-1/2 translate-x-1/2 text-4xl font-semibold my-3" : "text-4xl font-semibold my-3"}`}>{category.name}</h2>
-                            <Link className={`${btn === category._id ? "absolute bottom-2 right-1/2 translate-x-1/2" : "hidden"}`} to={`/products/${category._id}`}><motion.button className='bg-[#004aad] px-2 py-1 text-white rounded-lg'>Visit Products</motion.button></Link>
+                            <h2 className={`${btn === category._id ? "lg:absolute top-4 right-1/2 lg:translate-x-1/2 text-4xl font-semibold my-3" : "text-4xl font-semibold my-3"}`}>{category.name}</h2>
+                            <Link className={`${btn === category._id ? "lg:absolute bottom-2 right-1/2 lg:translate-x-1/2" : "lg:hidden"}`} to={`/products/${category._id}`}><motion.button className='bg-[#004aad] px-2 py-1 text-white rounded-lg'>Visit Products</motion.button></Link>
                         </div>
                     </motion.div>)
                 }
