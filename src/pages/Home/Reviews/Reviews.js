@@ -9,7 +9,7 @@ const Reviews = () => {
     return (
         <div>
             <h2 className='text-3xl font-bold text-center'>Customers Says</h2>
-            <div className='lg:flex  justify-between lg:mx-12 my-20 py-5' >
+            <div className='w-[80vw] max-w-[1200px] mx-auto my-20 py-5' >
                 <Swiper
                     spaceBetween={30}
                     slidesPerView={"auto"}

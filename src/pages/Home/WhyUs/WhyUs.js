@@ -6,7 +6,7 @@ const WhyUs = () => {
         <div className='my-20'>
             <h2 className='text-center text-3xl font-bold'>Why Trust Us</h2>
             <div className='grid grid-cols-1 lg:grid-cols-2'>
-                <div className='p-5 lg:p-10 relative h-screen'>
+                <div className='p-5 lg:p-10 relative max-h-[630px]'>
                     <img data-aos="fade-right" className='rounded-lg h-full w-auto' src="/assets/pexels-karolina-grabowska-4968648.jpg" alt="" />
                     <figure data-aos="fade-up" className='absolute bottom-10 left-1/3 border-[10px] rounded-tl-lg rounded-r-lg'>
                         <img src="assets/download.jpg" alt="" />
