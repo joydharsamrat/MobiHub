@@ -4,11 +4,11 @@ import { FaFacebookSquare, FaInstagramSquare, FaTwitter, FaYoutube } from "react
 
 const Contact = () => {
     return (
-        <div className='mt-20 lg:flex flex-col justify-around items-center gap-10 bg-slate-100 py-10'>
-            <div className='lg:flex flex-col justify-center items-center' >
-                <div className='flex items-center gap-5 mb-10'>
-                    <p className='text-5xl text-[#004aad]'><GoMailRead></GoMailRead></p>
-                    <h2 className='text-3xl font-bold'>Subscribe Our Newsletter</h2>
+        <div className='mt-20 flex flex-col justify-around items-center gap-10 bg-slate-100 py-10'>
+            <div className='flex flex-col justify-center items-center' >
+                <div className='flex items-center justify-center gap-5 mb-10'>
+                    <p className='text-3xl lg:text-5xl text-[#004aad]'><GoMailRead></GoMailRead></p>
+                    <h2 className='text-xl lg:text-3xl font-bold'>Subscribe Our Newsletter</h2>
                 </div>
                 <div className="form-control">
                     <div className="input-group ">
