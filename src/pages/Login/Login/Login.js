@@ -48,7 +48,7 @@ const Login = () => {
                     role: "buyer"
                 }
                 handelSetUserToDatabase(user)
-                setCreatedUserEmail(result.user.email)
+
             })
             .catch(err => console.log(err))
     }
@@ -65,6 +65,7 @@ const Login = () => {
             .then(data => {
                 console.log(data)
                 setLoading(false)
+                setCreatedUserEmail(user.email)
             })
     }
 

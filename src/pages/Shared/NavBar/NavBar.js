@@ -11,7 +11,7 @@ const NavBar = () => {
     }
     return (
         <div>
-            <div className="navbar lg:px-12">
+            <div className="navbar lg:px-12 bg-white">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -26,6 +26,8 @@ const NavBar = () => {
                 </div>
                 <div className="navbar-end hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">
+                        <li><NavLink className={({ isActive }) => isActive ? "bg-slate-200 rounded-xl font-semibold mx-2" : "font-semibold mx-2"} to='/home'>Home</NavLink></li>
+                        <li><NavLink className={({ isActive }) => isActive ? "bg-slate-200 rounded-xl font-semibold mx-2" : "font-semibold mx-2"} to='/about'>About</NavLink></li>
                         <li><NavLink className={({ isActive }) => isActive ? "bg-slate-200 rounded-xl font-semibold mx-2" : "font-semibold mx-2"} to='/dashboard'>Dashboard</NavLink></li>
                         <li><NavLink className={({ isActive }) => isActive ? "bg-slate-200 rounded-xl font-semibold mx-2" : "font-semibold mx-2"} to='/blogs'>Blogs</NavLink></li>
                         {

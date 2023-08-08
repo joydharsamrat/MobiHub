@@ -77,6 +77,7 @@ const Register = () => {
                     role: "buyer"
                 }
                 handelSetUserToDatabase(user)
+
             })
             .catch(err => {
                 console.log(err)

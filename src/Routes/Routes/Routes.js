@@ -20,6 +20,7 @@ import Payment from "../../pages/Dashboard/Payment/Payment";
 import MyWishlist from "../../pages/Dashboard/MyWishlist/MyWishlist";
 import MyBuyers from "../../pages/Dashboard/MyBuyers/MyBuyers";
 import Blogs from "../../pages/Blogs/Blogs";
+import About from "../../pages/About/About";
 
 export const router = createBrowserRouter([
     {
@@ -30,6 +31,14 @@ export const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>
+            },
+            {
+                path: '/home',
+                element: <Home></Home>
+            },
+            {
+                path: '/about',
+                element: <About></About>
             },
             {
                 path: '/blogs',

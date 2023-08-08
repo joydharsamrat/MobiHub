@@ -12,7 +12,7 @@ const Contact = () => {
                 </div>
                 <div className="form-control">
                     <div className="input-group ">
-                        <input type="email" placeholder="Your Email Address" className="input input-bordered" />
+                        <input type="email" placeholder="Your Email Address" className="input input-bordered text-white " />
                         <button className="btn">
                             Subscribe
                         </button>

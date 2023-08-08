@@ -4,7 +4,6 @@ import ProductsCard from './ProductsCard';
 
 const Products = () => {
     const products = useLoaderData();
-
     return (
         <div className='lg:mx-12 my-12'>
             {
